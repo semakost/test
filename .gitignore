@@ -1,2 +1,4 @@
 /MyDB
 /.idea
+**/logs
+*.log
