@@ -2,7 +2,11 @@
 
 session_start();
 
-var_dump(isset($_SESSION['role']) ? $_SESSION['role'] : "Нет роли");
+if(isset($_SESSION['role'])) {
+    var_dump($_SESSION['role']);
+}else {
+    var_dump("Нет роли");
+}
 if(isset($_SESSION['role']) !== true) {
     $_SESSION['role'] = 'Admin';
     $_SESSION['role_id'] = '3';
@@ -10,9 +14,10 @@ if(isset($_SESSION['role']) !== true) {
 
 function connect()
 {
-    static $connectDb = null;
+    $connectDb = null;
 
-    if($connectDb === null) {
+    if($connectDb === null)
+    {
         $connectDb = mysqli_connect('localhost' , 'root' , '' , 'MyDB')
         or die('Error connect Db!!!');
     }
@@ -23,13 +28,13 @@ function connect()
 echo 'Права доступа: ' . $_SESSION['role'];
 
 if($_SESSION['role_id'] >= 2) {
-    $result = mysqli_query(connect() , "SELECT * FROM MyDB.Staff");
+    $result = mysqli_query(connect(), "SELECT * FROM MyDB.Staff");
 
     echo '<style>
 th, td {padding: 5px 10px; border-bottom: 1px dotted black;}
 table {margin: 20px auto;background-color: #76d5fc;}
 tr:hover > td {background-color: #1ba3da;}
-</style><table border="0">
+</style><table>
    <caption>Таблица сотрудников</caption>
    <tr>  <th>ID</th>  <th>ИМЯ</th>    <th>ДоЛЖНОСТЬ</th>    <th>ДР</th>    <th>Дети есть?</th>    <th>Телефон</th>   </tr>';
     while($row = mysqli_fetch_array($result)) {
@@ -43,7 +48,7 @@ tr:hover > td {background-color: #1ba3da;}
             . $row['phone'] . '</td></tr>';
     }
     echo '</table>';
-    echo "Okeyushki";
+    echo "<p>Okeyushki</p>";
 }else {
     print 'ТЫ ЗДЕСЬ НЕ ПРОЙДЕШЬ!!!';
 }

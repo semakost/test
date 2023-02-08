@@ -1,4 +1,5 @@
-/MyDB
-/.idea
+/MyDB/
+/.idea/
 **/logs
 *.log
+index.html
